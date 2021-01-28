@@ -699,14 +699,42 @@
 
 <body class="antialiased">
     <header>
-
+        
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-
+            
+            @if (Route::has('login'))
+                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    @auth
+                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
+                    @else
+                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
+    
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+            
+    
             <ol class="carousel-indicators">
                 <div class="col-md-12 hover-slide text-center">
+                    @if (Route::has('login'))
+                    @auth
                     <a href="{{ url('/products') }}"> <button class="button  button-5 button-5a icon-cart"><i
-                                class="fa fa-shopping-cart"></i> <span>Shop</span></button>
+                        class="fa fa-shopping-cart"></i> <span>Home</span></button>
+            </a>
+                    @else
+                    <a href="{{ route('login') }}"> <button class="button  button-5 button-5a icon-cart"><i
+                                class="fa fa-sign-in"></i> <span>Login</span></button>
                     </a>
+                    @if (Route::has('register'))
+                    <a href="{{ route('register') }}"> <button class="button  button-5 button-5a icon-cart"><i
+                        class="fa fa-user-plus"></i> <span>Register</span></button>
+            </a>
+            @endif
+            @endauth
+            @endif
                 </div>
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>

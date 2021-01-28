@@ -19,7 +19,7 @@
                 <div class="card bg-light mb-3">
                     <div class="card-body">
                         <p class="card-text">{{ $product->description }}</p>
-                        <p class="price">{{ $product['price'].'Rs' }} </p>
+                        <p class="price text-center font-weight-bold card-text">Rs{{ $product['price'] }} .00</p>
 
                         <form method="get" action="{{ '/cart' }}">
                            

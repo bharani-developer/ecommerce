@@ -19,6 +19,7 @@ use App\Http\Controllers\front\ContactController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['middleware' => 'auth'], function () {
 Route::get('contact', [ContactController::class, 'index']);
 Route::resources(
     [
@@ -34,4 +35,8 @@ Route::patch('update-cart', [CartController::class, 'update']);
 Route::get('payment-process', [RazorPayController::class, 'process']);
 Route::get('payment-success', [RazorPayController::class, 'success']);
 Route::delete('clearCart', [CartController::class, 'clearCart']);
+});
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

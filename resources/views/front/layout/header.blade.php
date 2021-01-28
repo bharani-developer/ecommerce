@@ -1,3 +1,4 @@
+<div id="app">
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/products') }}">BK Ecommerce</a>
@@ -30,7 +31,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 col-12 text-center checkout">
                             <div class="dropdown">
-                                <button type="button" class="btn btn-info" data-toggle="dropdown">
+                                <button type="button" class="btn btn-info" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span
                                         class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
                                 </button>
@@ -67,21 +68,68 @@
                                         @endif
                                         <div class="row">
                                             <div class="col-lg-12 col-sm-12 col-12 text-center checkout">
-                                                <a href="{{ url('cart') }}" class="btn btn-primary btn-block">View
+                                                <a href="{{ url('cart') }}" class="btn btn-success btn-md btn-block text-uppercase">View
                                                     all</a>
                                             </div>
                                         </div>
+                                        
                                     </div>
                                 </div>
+                                
                             </div>
+
+
+
                         </div>
+                        
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav m-auto">
+                    </form>
+              <!-- Authentication Links -->
+          @guest
+          @if (Route::has('login'))
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+              </li>
+          @endif
+          
+          @if (Route::has('register'))
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+              </li>
+          @endif
+      @else
+          <li class="nav-item dropdown">
+              <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                  {{ Auth::user()->name }}
+              </a>
+
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ route('logout') }}"
+                     onclick="event.preventDefault();
+                                   document.getElementById('logout-form').submit();">
+                      {{ __('Logout') }}
+                  </a>
+
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                     {{ csrf_field() }}
+                  </form>
+              </div>
+          </li>
+      @endguest
+            </ul>
                     </div>
                 </div>
-                @yield('scripts')
-            </form>
+                
+           
+            
         </div>
+        
     </div>
+  
 </nav>
+</div>
 <section class="jumbotron text-center">
     <div class="container">
         <h1 class="jumbotron-heading">{{ $page_info['page_name'] }}</h1>

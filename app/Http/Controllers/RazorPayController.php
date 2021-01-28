@@ -11,11 +11,14 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Models\Payment;
-
+use Auth;
 class RazorPayController extends Controller
 {
   public function process(Request $request)
   {
+    $user = auth()->user(); 
+    $email = Auth::user()->email;
+
     $details = [
       'title' => 'Mail from BK ECommerce',
       'body' => 'Your order has been shipped!'
@@ -31,7 +34,7 @@ class RazorPayController extends Controller
       "active" => "active"
   ];
 
-    Mail::to('bharani.developer@gmail.com')->send(new \App\Mail\OrderShipped($details));
+    Mail::to($email)->send(new \App\Mail\OrderShipped($details));
 
  
     Payment::insertGetId($payInfo);
@@ -41,6 +44,8 @@ class RazorPayController extends Controller
 
   public function success()
   {
+    $user = auth()->user(); 
+    $email = Auth::user()->email;
     $page_info = [
       "page_name" => "CONTACT",
       "active" => "active"
@@ -50,7 +55,7 @@ class RazorPayController extends Controller
       'body' => 'Your order has been shipped!'
     ];
 
-    Mail::to('bharanikarthikeyan1995@gmail.com')->send(new \App\Mail\MyTestMail($details));
+    Mail::to($email)->send(new \App\Mail\MyTestMail($details));
     session()->forget('cart');
 
     return view('razorpay.success',compact('page_info'));
