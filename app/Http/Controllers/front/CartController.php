@@ -104,6 +104,5 @@ class CartController extends Controller
     }
     public function clearCart(){
         session()->forget('cart');
-
     }
 }
